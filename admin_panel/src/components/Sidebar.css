@@ -1,0 +1,109 @@
+
+          .main-menu{
+            margin-top: 70px;
+          }
+
+          /* ACTIVE MENU */
+          .sidebar-link.active {
+            background: #39438d !important;
+            color: white !important;
+            box-shadow:
+              0 5px 12px rgba(111, 78, 55, 0.20);
+          }
+
+          /* HOVER MENU */
+          .sidebar-link:not(.active):hover {
+            background: #a9c4ed !important;
+            color: #06080f !important;
+            transform: translateX(3px);
+          }
+
+          /* DROPDOWN ARROW */
+          .dropdown-toggle::after {
+            color: #374b6f;
+          }
+
+          /* DROPDOWN HOVER */
+          .dropdown-item:hover {
+            background: #dfedf3;
+            color: #37496f;
+          }
+
+          /* LIVE DOT */
+          .live-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: #dc3545;
+            display: inline-block;
+
+            box-shadow:
+              0 0 0 0 rgba(220, 53, 69, 0.5);
+
+            animation: livePulse 1.5s infinite;
+          }
+
+          /* LIVE DOT ANIMATION */
+          @keyframes livePulse {
+
+            0% {
+              box-shadow:
+                0 0 0 0 rgba(220, 53, 69, 0.5);
+            }
+
+            70% {
+              box-shadow:
+                0 0 0 6px rgba(220, 53, 69, 0);
+            }
+
+            100% {
+              box-shadow:
+                0 0 0 0 rgba(220, 53, 69, 0);
+            }
+
+          }
+
+          /* SCROLLBAR */
+          .overflow-auto::-webkit-scrollbar {
+            width: 5px;
+          }
+
+          .overflow-auto::-webkit-scrollbar-track {
+            background: transparent;
+          }
+
+          .overflow-auto::-webkit-scrollbar-thumb {
+            background: #b6bfd8;
+            border-radius: 10px;
+          }
+
+          .overflow-auto::-webkit-scrollbar-thumb:hover {
+            background: #8b9bb9;
+          }
+
+          .profile-toggle
+           {
+              position: relative !important;
+              padding-right: 35px !important;
+             
+            } 
+
+          /* Bootstrap default arrow ko right side center mein rakho */
+
+           .profile-toggle::after
+            {
+               position: absolute !important; 
+               right: 14px !important;
+               top: 50% !important;
+               transform: translateY(-50%) !important; 
+              margin: 0 !important; 
+              vertical-align: middle !important;
+              
+              color: #37406f !important; }
+           /* Dropdown open hone par arrow ulta */
+            .profile-toggle.show::after 
+            {
+             transform: translateY(-50%) 
+             rotate(180deg) !important; 
+             }
+        
