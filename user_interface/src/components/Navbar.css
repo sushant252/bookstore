@@ -384,3 +384,67 @@
   }
 
 }
+
+/* Mobile Login Button */
+.mobile-login {
+  font-family: inherit;
+  text-align: left;
+  border: none;
+  cursor: pointer;
+}
+
+/* Login modal sizing */
+.bookhaven-login-dialog {
+  width: calc(100% - 24px);
+  max-width: 480px;
+  margin: 12px auto;
+}
+
+.bookhaven-login-dialog .modal-content {
+  border: none;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(33, 28, 24, 0.18);
+}
+
+.bookhaven-login-dialog .modal-header {
+  padding: 20px 24px;
+  background: #fbf7ef;
+  border-bottom: 1px solid #e7ded2;
+}
+
+.bookhaven-login-dialog .modal-title {
+  color: #211c18;
+  font-family: Georgia, serif;
+  font-weight: 700;
+}
+
+.bookhaven-login-dialog .modal-body {
+  padding: 24px;
+}
+
+.bookhaven-login-dialog .form-control {
+  min-height: 44px;
+  border-radius: 9px;
+}
+
+.bookhaven-login-dialog .btn-primary {
+  min-height: 45px;
+  border: none;
+  border-radius: 10px;
+  background: #211c18;
+}
+
+.bookhaven-login-dialog .btn-primary:hover {
+  background: #b86b3d;
+}
+
+@media (max-width: 480px) {
+  .bookhaven-login-dialog {
+    margin: 12px auto;
+  }
+
+  .bookhaven-login-dialog .modal-body {
+    padding: 18px;
+  }
+}

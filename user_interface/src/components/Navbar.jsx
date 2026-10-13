@@ -1,10 +1,11 @@
 import { useState } from "react";
 import "./Navbar.css";
-
+import Login from "./Login";
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-
+  const [showLogin, setShowLogin] = useState(false);
   return (
+   <>
     <header className="navbar">
       <div className="navbar-container">
 
@@ -41,14 +42,17 @@ function Navbar() {
           </a>
 
           {/* Mobile Login */}
-          <a
-            href="#login"
-            className="mobile-login"
-            onClick={() => setMenuOpen(false)}
-          >
-            <i className="bi bi-person"></i>
-            Login
-          </a>
+         <button
+  type="button"
+  className="mobile-login"
+  onClick={() => {
+    setMenuOpen(false);
+    setShowLogin(true);
+  }}
+>
+  <i className="bi bi-person"></i>
+  Login
+</button>
 
         </nav>
 
@@ -76,7 +80,7 @@ function Navbar() {
           </button>
 
           {/* Login */}
-          <button className="login-btn">
+          <button className="login-btn"  onClick={() => setShowLogin(true)}>
             <i className="bi bi-person"></i>
             <span>Login</span>
           </button>
@@ -98,6 +102,12 @@ function Navbar() {
 
       </div>
     </header>
+   <Login
+  show={showLogin}
+  onHide={() => setShowLogin(false)}
+/>
+
+   </>
   );
 }
 
