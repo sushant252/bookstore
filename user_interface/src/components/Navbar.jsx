@@ -2,11 +2,13 @@
 import { useState } from "react";
 import "./Navbar.css";
 import Login from "./Login";
+import {useSelector} from 'react-redux';
+import {useNavigate} from 'react-router-dom';  
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
-
+  let navigate = useNavigate()
 
   const [isLoggedIn, setIsLoggedIn] = useState(
     localStorage.getItem("isLoggedIn") === "true" &&
@@ -16,6 +18,8 @@ function Navbar() {
   const [userName, setUserName] = useState(
     localStorage.getItem("name") || ""
   );
+
+  const{ products }= useSelector((state) => state.cart);
 
   // Successful login
   const handleLoginSuccess = () => {
@@ -36,7 +40,9 @@ function Navbar() {
     setShowLogin(false);
     setMenuOpen(false);
   };
-
+  function goToCartPage() {
+ navigate('/cart')
+}
   return (
     <>
       <header className="navbar">
@@ -123,9 +129,14 @@ function Navbar() {
               type="button"
               className="nav-icon-btn cart-btn"
               aria-label="Cart"
+              onClick={goToCartPage}
             >
               <i className="bi bi-bag"></i>
-              <span className="cart-count">2</span>
+              {
+                products.length > 0 && <span className="cart-count">
+                   {products.length }
+                  </span>
+              }
             </button>
 
             {/* Login / Logout */}

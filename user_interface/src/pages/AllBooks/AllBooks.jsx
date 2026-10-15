@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
+import {useDispatch} from 'react-redux';
+import {addProduct} from '../../features/cart/cartslice.js';
 import axios from "axios";
 import "./AllBooks.css";
-
 const apiUrl = import.meta.env.VITE_API_URL;
 
 function AllBooks() {
-
+  let dispatch = useDispatch()
   const [books, setBooks] = useState([]);
  const [discounts, setDiscounts] = useState([]);
   useEffect(() => {
@@ -23,10 +24,9 @@ function AllBooks() {
       });
   }, []);
 
-  
-  const addToCart = (book) => {
-  alert(`Add ${book.bookTittle} item to cart`);
-};
+   function addToCart(book) {
+    dispatch(addProduct(book))
+  }
   return (
     <section className="all-books-page">
       <div className="all-books-container">

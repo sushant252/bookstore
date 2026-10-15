@@ -9,21 +9,16 @@ async function addUser(req, res) {
             email: req.body.email,
             userType: 'user'
         });
-
         if (user) {
             return res.status(400).send({
                 success: false,
                 message: "User already exists"
             });
         }
-
         const password = await bcrypt.hash(req.body.password, 10);
-
         const newUser = new User(req.body);
         newUser.password = password;
-
         await newUser.save();
-
         return res.status(200).send({
             success: true,
             message: "Welcome to our Platform. Please Login first"
@@ -46,7 +41,6 @@ async function doUserLogin(req, res) {
         const user = await User.findOne({
             email: req.body.email
         });
-
         if (!user) {
             return res.status(401).send({
                 success: false,
