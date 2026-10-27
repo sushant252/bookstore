@@ -34,7 +34,6 @@ function Navbar() {
     localStorage.removeItem("name");
     localStorage.removeItem("email");
     localStorage.removeItem("isLoggedIn");
-
     setIsLoggedIn(false);
     setUserName("");
     setShowLogin(false);

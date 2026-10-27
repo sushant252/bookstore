@@ -377,3 +377,46 @@
     font-size: 9px;
   }
 }
+
+
+.book-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.buy-now-btn {
+  background: #222;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.buy-now-btn:hover {
+  background: #444;
+}
+
+.add-book-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f5f5;
+  color: #222;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.add-book-btn:hover {
+  background: #222;
+  color: #fff;
+}

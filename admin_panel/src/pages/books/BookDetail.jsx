@@ -10,7 +10,6 @@ const apiUrl = import.meta.env.VITE_API_URL;
 function BookDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-
   const [book, setBook] = useState("");
   const [discount, setDiscount ] = useState("");
   const [finalPrice, setFinalPrice] = useState();
@@ -74,11 +73,7 @@ function BookDetail() {
                {discount ? (
         <div>
             <span className="fs-1 fw-bold">
-                ₹
-                {discount.discountType === "Percentage"
-                    ? book.originalPrice -
-                      (book.originalPrice * discount.discountValue) / 100
-                    : book.originalPrice - discount.discountValue}
+                ₹{ (discount.discountType === "Percentage" ? book.originalPrice - (book.originalPrice * discount.discountValue) / 100 : book.originalPrice - discount.discountValue).toFixed(2)}
             </span>
 
             <span className="ms-3 text-muted text-decoration-line-through fs-5">

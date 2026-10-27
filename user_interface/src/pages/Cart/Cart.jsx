@@ -88,7 +88,7 @@ function Cart() {
                     <tr>
                       <th>Book</th>
                       <th>Book Details</th>
-                      <th>Author</th>
+                      {/* <th>Author</th> */}
                       <th>Price</th>
                       <th className="text-center">Action</th>
                     </tr>
@@ -111,15 +111,9 @@ function Cart() {
                             <h6>{product.bookTittle}</h6>
                             <span className="bh-book-badge">
                               <i className="bi bi-bookmark-heart me-1"></i>
-                              BookHaven Collection
+                              {product.authorName}
                             </span>
                           </div>
-                        </td>
-
-                        <td>
-                          <span className="bh-cart-author">
-                            {product.authorName}
-                          </span>
                         </td>
 
                         <td>

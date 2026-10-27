@@ -72,6 +72,11 @@ function Sidebar() {
       icon: "bi-people",
       label: "Users",
     },
+    {
+      path: "/transactions",
+      icon: "bi-receipt",
+      label: "Manage Transaction",
+    },
 
   ];
 

@@ -12,13 +12,16 @@ const cartSlice = createSlice({
                 state.products.push(action.payload);
 
                 state.totalCost = state.totalCost + parseInt(action.payload.originalPrice);
-            } 
-            
+            }  
         },
         deleteProduct:(state, action) => {
             let product = state.products.find((product) => product._id === action.payload );
             state.totalCost = state.totalCost - product.originalPrice
             state.products = state.products.filter((product) => product._id !== action.payload)
+        },
+        deletecart: (state, action) => {
+             state.products.length = 0
+             state.totalCost = 0   
         },
         totalProductCost: (state, action) => {
             for(let i =0 ; i < state.products.length; i++) {
@@ -27,5 +30,5 @@ const cartSlice = createSlice({
         }
     }
 });
-export const { addProduct, deleteProduct } = cartSlice.actions;
+export const { addProduct, deleteProduct, deletecart } = cartSlice.actions;
 export default cartSlice.reducer;

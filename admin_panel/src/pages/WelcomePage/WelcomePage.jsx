@@ -6,7 +6,8 @@ import logo from "../../assets/logo.png";
 import axios from "axios";
 const apiUrl = import.meta.env.VITE_API_URL;
 function WelcomePage() {
-  
+  // transactions
+    const [transactions, setTransactions] = useState([]);
   // users 
   const [username, setUserName] = useState("Admin");
   const [totalBooks, setTotalBooks] = useState(0);
@@ -44,38 +45,20 @@ function WelcomePage() {
             .catch((err) => {
                 alert(err);
             })
+     axios({
+            url: apiUrl + "/topFive/transactions",
+            method: "get",
+        })
+            .then((res) => {
+                setTransactions(res.data.data);
+            })
+            .catch((err) => {
+                alert(err.message);
+            });
+          
   }, []);
 
-  const recentOrders = [
-    {
-      id: "#ORD-1025",
-      customer: "Rahul Sharma",
-      book: "The Alchemist",
-      amount: "₹499",
-      status: "Completed",
-    },
-    {
-      id: "#ORD-1024",
-      customer: "Priya Singh",
-      book: "Atomic Habits",
-      amount: "₹699",
-      status: "Pending",
-    },
-    {
-      id: "#ORD-1023",
-      customer: "Aman Kumar",
-      book: "Rich Dad Poor Dad",
-      amount: "₹399",
-      status: "Processing",
-    },
-    {
-      id: "#ORD-1022",
-      customer: "Neha Verma",
-      book: "Ikigai",
-      amount: "₹349",
-      status: "Completed",
-    },
-  ];
+  
 
   return (
     <Container fluid className="dashboard-container">
@@ -526,6 +509,88 @@ function WelcomePage() {
 
         </Col>
 
+           {/* ================= RECENT TRANSACTION ================= */}
+
+        <Col lg={8}>
+
+          <Card className="dashboard-section">
+
+            <Card.Body>
+
+              <div className="section-header">
+
+                <div>
+                  <h5>Recent Transactions</h5>
+
+                  <small>
+                    Latest orders from your store
+                  </small>
+                </div>
+
+                <button className="view-btn">
+                  View All
+                </button>
+
+              </div>
+
+              <div className="table-responsive">
+
+                <Table
+                  hover
+                  borderless
+                  className="orders-table"
+                >
+
+                  <thead>
+
+                    <tr>
+                      <th>Transaction ID</th>
+                      <th>Customer Email</th>
+                    
+                      <th>Amount</th>
+                      <th>Status</th>
+                    </tr>
+
+                  </thead>
+
+                  <tbody>
+
+                    { transactions.map((transaction, i) =>  (
+                      <tr >
+                        <td className="order-id"> #{transaction.transactionId}</td>
+                        <td>{transaction.email}</td>
+
+                        
+
+                        <td>
+                           ₹{Number(transaction.amount).toLocaleString("en-IN")}
+                        </td>
+
+                        <td   className={
+                                  transaction.status?.toLowerCase() === "completed"
+                                      ? "text-success"
+                                      : transaction.status?.toLowerCase() === "pending"
+                                      ? "text-warning"
+                                      : ""
+                              }>
+                             {transaction.status}
+                        </td>
+
+                      </tr>
+
+                    ))} 
+
+                  </tbody>
+
+                </Table>
+
+              </div>
+
+            </Card.Body>
+
+          </Card>
+
+        </Col>
 
         {/* ================= STORE OVERVIEW ================= */}
 

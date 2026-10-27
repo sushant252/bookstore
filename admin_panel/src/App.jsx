@@ -12,7 +12,8 @@ import CreateDiscounts from './pages/Discount/CreateDiscount';
 import DiscountList from './pages/Discount/Discountlist';
 import DiscountForEdit from './pages/Discount/DiscountForEdit';
 import BookDetail from './pages/books/BookDetail';
-import UserList from './pages/users/UserList'
+import UserList from './pages/users/UserList';
+import TransactionList from './pages/Transation/TransactionList'
 import "./App.css";
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
                                     <Route path="/add/discount" element={<CreateDiscounts />} />
                                     <Route path="/edit/discount/:id" element={<DiscountForEdit />} />
                                     <Route path="/users" element ={<UserList />}></Route>
+                                     <Route path="/transactions" element ={<TransactionList />}></Route>
                                 </Routes>
                             </main>
                         </div>

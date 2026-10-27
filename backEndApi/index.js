@@ -8,6 +8,8 @@ const Home = require('./routes/user/Home')
 const createAdmin = require('./createAdmin')
 const frontuser = require('./routes/user/User')
 const discount = require('./routes/discount')
+const payment = require('./routes/user/payment')
+const transactions = require('./routes/pyment')
 
 const app  = express();
 app.use(cors());
@@ -16,6 +18,8 @@ app.use(user);
 app.use(Home);
 app.use(discount);
 app.use(frontuser)
+app.use(payment);
+app.use(transactions);
 connect();
 createAdmin();
 app.listen(3000, (err) =>{

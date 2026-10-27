@@ -9,7 +9,7 @@ function BookList() {
     let [isDelete, setIsDelete] = useState(false);
     let [searchBook, setSearchBook] = useState('');
     let [nop, setNop] = useState(1);
-    let [booksPerPage] = useState(3);
+    let [booksPerPage, setBookPerPage] = useState(10);
     let [pageNo, setPageNo] = useState(1);
     let navigate = useNavigate();
     let items = [];
@@ -71,7 +71,7 @@ function BookList() {
                 <Col className="shadow mt-3"  style={{background: "linear-gradient(180deg, #f8feff 0%, #ddf3f8 100%)"}}>
                     <Form>
                         <Form.Group>
-                            <Form.Select style={{ float: 'left', width:"70px"  }} className="shadow-none mt-4 mb-4 me-2" >
+                            <Form.Select style={{ float: 'left', width:"70px"  }}  value={booksPerPage} onChange = {(e) => setBookPerPage(e.target.value)} className="shadow-none mt-4 mb-4 me-2" >
                                 <option value="5">5</option>
                                 <option value="10">10</option>
                                 <option value="25">25</option>

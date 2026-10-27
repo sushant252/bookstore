@@ -82,31 +82,38 @@ function AllBooks() {
                 </p>
 
                <div className="book-bottom">
-  <div className="price-box">
-    <span className="book-original-price">
-      ₹{book.originalPrice}
-    </span>
+                
+                <div className="price-box">
+              <span className="book-original-price">
+                ₹{book.originalPrice}
+              </span>
 
-    <span className="book-discount">
-      {discounts.discountValue}% OFF
-    </span>
+              <span className="book-discount">
+                {discounts.discountValue}% OFF
+              </span>
 
-    <span className="book-final-price">
-      ₹
-      {Math.round(
-        book.originalPrice -
-        (book.originalPrice * book.discount) / 100
-      )}
-    </span>
+              <span className="book-final-price">
+                ₹{Math.round( book.originalPrice )}
+              </span>
+            </div>
+             <div className="book-actions">
+    <button
+      className="buy-now-btn"
+      onClick={() => handleBuyNow(book)}
+    >
+      Buy Now
+    </button>
+
+    <button
+      className="add-book-btn"
+      onClick={() => addToCart(book)}
+      title="Add to Cart"
+      aria-label="Add to Cart"
+    >
+      <i className="bi bi-cart-plus"></i>
+    </button>
   </div>
-
-  <button
-    className="add-book-btn"
-    onClick={() => addToCart(book)}
-  >
-    <i className="bi bi-plus"></i>
-  </button>
-</div>
+          </div>
 
               </div>
 
