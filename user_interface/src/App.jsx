@@ -9,8 +9,7 @@ import Cart from './pages/Cart/Cart.jsx'
 import CheckOut from './pages/CheckOut/CheckOut.jsx'
 import PaymentSuccess from './pages/CheckOut/PaymentSuccess.jsx'
 import PaymentFailure from './pages/CheckOut/PaymentFailure.jsx'
-
-
+import Userprofile from './pages/UserProfile/UserProfile.jsx'
 function App() {
   return (
      <Provider store={store}>
@@ -24,6 +23,7 @@ function App() {
           <Route path='/CheckOut' element={<CheckOut></CheckOut>} ></Route>
           <Route path='/payment/success' element={<PaymentSuccess></PaymentSuccess>}></Route>
           <Route path='/Payment/failed' element={<PaymentFailure></PaymentFailure>}></Route>
+          <Route path='/user/profile' element={<Userprofile></Userprofile>}></Route>
         </Routes>
       </main>
     </BrowserRouter>
