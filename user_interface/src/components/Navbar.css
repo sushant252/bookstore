@@ -562,3 +562,11 @@ body {
 * {
   box-sizing: border-box;
 }
+
+.welcome-user{
+  color: black;
+  background-color: #b86b3d ;
+  padding: 5px;
+  border-radius: 25px;
+  
+}

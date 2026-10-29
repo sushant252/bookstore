@@ -9,7 +9,7 @@ const dispatch = useDispatch();
 let navigate = useNavigate();
 let [firstName, setFirstName] = useState('');
 let [lastName, setLastName] = useState('');
-let [email, setEmail] = useState('');
+let [email, setEmail] = useState(localStorage.getItem("email") || "");
 let [mobileNO, setMobileNO] = useState('');
 let [addressLine1, setAddressLine1] = useState('');
 let [addressLine2, setAddressLine2] = useState('');
@@ -21,6 +21,7 @@ let [amount, setAmount]= useState(0);
 function deleteCartOnPaymentSussecc() {
     dispatch(deletecart())
 }
+
 const loadScript = (src) => {
         return new Promise((resolve) => {
             const script = document.createElement('script');
@@ -118,7 +119,7 @@ async function goForPayment() {
                         <Col>
                         <Form.Group>
                             <Form.Label>Email</Form.Label>
-                            <Form.Control type="email" onChange = {(e) => setEmail(e.target.value)}></Form.Control>
+                            <Form.Control type="email"  value={email} onChange = {(e) => setEmail(e.target.value)} required></Form.Control>
                         </Form.Group>
                         </Col>
                         <Col>

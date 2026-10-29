@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const  transactionSchema = new Schema({
     firstName: {type: String},
     lastName: {type: String},
-    email: {type: String},
+    email: {type: String, required: true},
     mobileNo: {type: String},
     addressLine1: {type: String},
     addressLine2: {type: String},

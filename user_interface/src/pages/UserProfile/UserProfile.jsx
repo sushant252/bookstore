@@ -2,112 +2,34 @@
 import React, { useMemo, useState } from "react";
 import "./UserProfile.css";
 
-const initialUser = {
-  name: "Alex Morgan",
-  email: "alex.morgan@example.com",
-  phone: "+91 98765 43210",
-  address: "42, Rosewood Apartments, Indirapuram, Ghaziabad, UP 201014",
-};
 
-const initialOrders = [
-  {
-    id: "PP10482",
-    title: "The Midnight Library",
-    author: "Matt Haig",
-    date: "Oct 24, 2026",
-    price: 399,
-    status: "In transit",
-    cover: "blue",
-  },
-  {
-    id: "PP10391",
-    title: "Atomic Habits",
-    author: "James Clear",
-    date: "Oct 12, 2026",
-    price: 499,
-    status: "Delivered",
-    cover: "cream",
-  },
-  {
-    id: "PP10275",
-    title: "Educated",
-    author: "Tara Westover",
-    date: "Sep 28, 2026",
-    price: 450,
-    status: "Delivered",
-    cover: "rust",
-  },
-  {
-    id: "PP10208",
-    title: "Ikigai",
-    author: "Héctor García",
-    date: "Sep 19, 2026",
-    price: 299,
-    status: "Processing",
-    cover: "green",
-  },
-  {
-    id: "PP10086",
-    title: "The Alchemist",
-    author: "Paulo Coelho",
-    date: "Aug 30, 2026",
-    price: 350,
-    status: "Delivered",
-    cover: "purple",
-  },
-];
-
-const filters = ["All orders", "Delivered", "In transit", "Processing"];
 
 export default function UserProfile() {
-  const [user, setUser] = useState(initialUser);
-  const [orders] = useState(initialOrders);
-  const [activeFilter, setActiveFilter] = useState("All orders");
-  const [search, setSearch] = useState("");
+   // Login states
+  const [showLogin, setShowLogin] = useState(false);
+  const [selectedBook, setSelectedBook] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    localStorage.getItem("isLoggedIn") === "true" &&
+      !!localStorage.getItem("token")
+  );
+  const [userName, setUserName] = useState(
+    localStorage.getItem("name") || ""
+  );
+  const [email, setEmail] = useState(
+    localStorage.getItem("email") || ""
+);
+
   const [activeSection, setActiveSection] = useState("My profile");
   const [editing, setEditing] = useState(false);
-  const [draft, setDraft] = useState(initialUser);
-  const [message, setMessage] = useState("");
-
-  const filteredOrders = useMemo(() => {
-    const query = search.trim().toLowerCase();
-
-    return orders.filter((order) => {
-      const matchesStatus =
-        activeFilter === "All orders" ||
-        order.status === activeFilter;
-
-      const matchesSearch = [
-        order.id,
-        order.title,
-        order.author,
-      ].some((value) => value.toLowerCase().includes(query));
-
-      return matchesStatus && matchesSearch;
-    });
-  }, [orders, activeFilter, search]);
-
-  function showMessage(text) {
-    setMessage(text);
-    window.clearTimeout(showMessage.timer);
-    showMessage.timer = window.setTimeout(() => setMessage(""), 2500);
-  }
+  
 
   function openEdit() {
-    setDraft({ ...user });
     setEditing(true);
   }
-
-  function saveProfile(event) {
-    event.preventDefault();
-    setUser({ ...draft });
-    setEditing(false);
-    showMessage("Profile updated successfully!");
-  }
-
+ 
+// profile card UI
   function navigate(section) {
     setActiveSection(section);
-
     const target = {
       "My profile": "personal-details",
       "Order history": "order-history",
@@ -115,16 +37,12 @@ export default function UserProfile() {
       Wishlist: "wishlist",
       "Account settings": "personal-details",
     }[section];
-
-    if (section === "Wishlist") {
-      showMessage("Your wishlist has 8 saved books.");
-    }
-
     document.getElementById(target)?.scrollIntoView({
       behavior: "smooth",
       block: "center",
     });
   }
+
 
   return (
     <main className="account-page">
@@ -150,18 +68,25 @@ export default function UserProfile() {
         <aside className="profile-card card">
           <div className="profile-top">
             <div className="profile-avatar">
-              {user.name
+              
+             {isLoggedIn
+            ? userName
                 .split(" ")
-                .map((part) => part[0])
+                .map((word) => word[0])
                 .join("")
                 .slice(0, 2)
-                .toUpperCase()}
+                .toUpperCase()
+            : ""}
+
+        <span className="online-dot" />
               <span className="online-dot" />
             </div>
-
-            <h2>{user.name}</h2>
-            <p>{user.email}</p>
-
+        {isLoggedIn && (
+          <>
+          <h2>{userName}</h2>
+            <p>{email}</p>
+          </>
+        )}
             <span className="member-pill">
               ✦ Paper Club Member
             </span>
@@ -225,100 +150,81 @@ export default function UserProfile() {
                 className="order-search"
                 type="search"
                 placeholder="⌕ Search books or orders"
-                value={search}
-                onChange={(event) => setSearch(event.target.value)}
                 aria-label="Search books or orders"
               />
             </div>
 
             <div className="filter-list">
-              {filters.map((filter) => (
-                <button
-                  key={filter}
-                  className={`filter-btn ${
-                    activeFilter === filter ? "active" : ""
-                  }`}
-                  onClick={() => setActiveFilter(filter)}
-                >
-                  {filter}
-                  {filter === "All orders" && ` (${orders.length})`}
-                </button>
-              ))}
+              <button className="filter-btn ">All orders</button>
+              <button className="filter-btn ">Deivered</button>
+              <button className="filter-btn ">In transit</button>
+              <button className="filter-btn ">Processing</button>
             </div>
 
             <div className="orders-list">
-              {filteredOrders.map((order) => (
-                <article className="order-row" key={order.id}>
-                  <div className={`book-cover ${order.cover}`}>
-                    <span>{order.title}</span>
-                    <small>{order.author}</small>
+             
+                <article className="order-row" >
+                  <div className="">
+                    <span></span>
+                    <small></small>
                   </div>
 
                   <div className="order-info">
-                    <small>ORDER #{order.id}</small>
-                    <h3>{order.title}</h3>
-                    <p>{order.author} · Paperback</p>
-                    <time>{order.date}</time>
+                    <small>
+                      {/* ORDER # {order.id} */}
+                      </small>
+                    <h3>
+                      {/* {order.title} */}
+                      </h3>
+                    <p>
+                      {/* {order.author} · Paperback */}
+                      </p>
+                    <time>
+                      {/* {order.date} */}
+                      </time>
                   </div>
 
                   <div className="order-right">
-                    <strong>₹{order.price.toFixed(2)}</strong>
+                    <strong>
+                      {/* ₹{order.price.toFixed(2)} */}
+                      </strong>
 
                     <span
-                      className={`status ${
-                        order.status === "Delivered"
-                          ? "delivered"
-                          : order.status === "In transit"
-                          ? "transit"
-                          : "processing"
-                      }`}
+                      className=""
                     >
-                      {order.status}
+                      {/* {order.status} */}
                     </span>
 
                     <button
                       className="text-btn"
-                      onClick={() =>
-                        showMessage(
-                          `Order ${order.id}: ${order.status}`
-                        )
-                      }
+                     
+                      
                     >
                       Details ↗
                     </button>
 
-                    {order.status === "Delivered" && (
+                
                       <button
                         className="text-btn"
-                        onClick={() =>
-                          showMessage(`${order.title} added to buy again.`)
-                        }
+                        
                       >
                         Buy again
                       </button>
-                    )}
+                   
 
-                    {order.status === "In transit" && (
+                  
                       <button
                         className="text-btn"
-                        onClick={() =>
-                          showMessage(
-                            "Your parcel is on its way!"
-                          )
-                        }
+                       
                       >
                         Track order ↗
                       </button>
-                    )}
+                  
                   </div>
                 </article>
-              ))}
+          
 
-              {filteredOrders.length === 0 && (
-                <div className="empty-state">
-                  No orders found. Try another search.
-                </div>
-              )}
+            
             </div>
           </section>
 
@@ -333,13 +239,13 @@ export default function UserProfile() {
 
               <p className="detail-label">Default address</p>
               <p className="detail-value">
-                {user.name}
+                {/* {user.name} */}
                 <br />
-                {user.address}
+                {/* {user.address} */}
               </p>
 
               <p className="detail-label">Phone number</p>
-              <p className="detail-value">{user.phone}</p>
+              <p className="detail-value"></p>
             </section>
 
             <section className="card detail-card" id="personal-details">
@@ -351,10 +257,10 @@ export default function UserProfile() {
               </div>
 
               <p className="detail-label">Full name</p>
-              <p className="detail-value">{user.name}</p>
+              <p className="detail-value"></p>
 
               <p className="detail-label">Email address</p>
-              <p className="detail-value">{user.email}</p>
+              <p className="detail-value"></p>
 
               <p className="detail-label">Member since</p>
               <p className="detail-value">March 2024</p>
@@ -365,9 +271,8 @@ export default function UserProfile() {
               <p className="detail-value">8 saved books</p>
               <button
                 className="text-btn"
-                onClick={() => showMessage("Wishlist page can be connected here.")}
               >
-                View wishlist ↗
+                View wishlist  ↗
               </button>
             </section>
           </div>
@@ -376,17 +281,15 @@ export default function UserProfile() {
 
       {editing && (
         <div className="modal-backdrop">
-          <form className="edit-modal" onSubmit={saveProfile}>
+          <form className="edit-modal" >
             <h2>Edit your profile</h2>
 
             <label>
               Full name
               <input
                 required
-                value={draft.name}
-                onChange={(e) =>
-                  setDraft({ ...draft, name: e.target.value })
-                }
+               
+                
               />
             </label>
 
@@ -395,20 +298,15 @@ export default function UserProfile() {
               <input
                 required
                 type="email"
-                value={draft.email}
-                onChange={(e) =>
-                  setDraft({ ...draft, email: e.target.value })
-                }
+               
               />
             </label>
 
             <label>
               Phone number
               <input
-                value={draft.phone}
-                onChange={(e) =>
-                  setDraft({ ...draft, phone: e.target.value })
-                }
+              type="number"
+              
               />
             </label>
 
@@ -416,10 +314,7 @@ export default function UserProfile() {
               Shipping address
               <textarea
                 required
-                value={draft.address}
-                onChange={(e) =>
-                  setDraft({ ...draft, address: e.target.value })
-                }
+              
               />
             </label>
 
@@ -439,11 +334,7 @@ export default function UserProfile() {
         </div>
       )}
 
-      {message && (
-        <div className="toast" role="status">
-          {message}
-        </div>
-      )}
+     
     </main>
   );
 }

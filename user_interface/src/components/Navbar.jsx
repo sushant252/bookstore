@@ -42,6 +42,9 @@ function Navbar() {
   function goToCartPage() {
  navigate('/cart')
 }
+  function goToUserProfile() {
+    navigate('/user/profile')
+  }
   return (
     <>
       <header className="navbar">
@@ -114,13 +117,24 @@ function Navbar() {
               </span>
             )}
 
-            {/* Search */}
+            {/* Search
             <button
               type="button"
               className="nav-icon-btn"
               aria-label="Search"
             >
               <i className="bi bi-search"></i>
+            </button> */}
+
+              {/* User profile */}
+              
+            <button
+              type="button"
+              className="nav-icon-btn cart-btn"
+              aria-label="Cart"
+              onClick={goToUserProfile}
+            >
+              <i className="bi bi-person"></i>
             </button>
 
             {/* Cart */}
@@ -158,6 +172,8 @@ function Navbar() {
                 <span>Logout</span>
               </button>
             )}
+
+            
 
             {/* Mobile Menu */}
             <button
